@@ -14,8 +14,8 @@
     <body>
         <div class="container">
             <img src="https://placeholdit.imgix.net/~text?w=400&h=300" alt="">
-            <form action="" id="date-selector">
-                <select name="month" id="month">
+            <form action="" id="horoscope-date-selector">
+                <select name="month" id="horoscope-month">
                     <option value="1">January</option>
                     <option value="2">February</option>
                     <option value="3">March</option>
@@ -29,7 +29,7 @@
                     <option value="11">November</option>
                     <option value="12">December</option>
                 </select>
-                <select name="day" id="day">
+                <select name="day" id="horoscope-day">
                     <option value="1">1</option>
                     <option value="2">2</option>
                     <option value="3">3</option>
@@ -66,6 +66,63 @@
             </form>
         </div>
 
-        <script src="js/min/main-min.js"></script>
+        <!-- <script src="js/min/main-min.js"></script> -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+        <script>
+            $(document).ready(function() {
+                Date.prototype.isLeapYear = function() {
+                    var year = this.getFullYear();
+                    if((year & 3) != 0) return false;
+                    return ((year % 100) != 0 || (year % 400) == 0);
+                };
+
+                // Get Day of Year
+                Date.prototype.getDOY = function() {
+                    var dayCount = [0, 31, 59, 90, 120, 151, 181, 212, 243, 273, 304, 334];
+                    var mn = this.getMonth();
+                    var dn = this.getDate();
+                    var dayOfYear = dayCount[mn] + dn;
+                    if(mn > 1 && this.isLeapYear()) dayOfYear++;
+                    return dayOfYear;
+                };
+
+                var horoscopes = [
+                    [[80, 109], 'url'],     // ARIES
+                    [[110, 140], 'url'],    // TAURUS
+                    [[141, 171], 'url'],    // GEMINI
+                    [[172, 203], 'url'],    // CANCER
+                    [[204, 234], 'url'],    // LEO
+                    [[234, 265], 'url'],    // VIRGO
+                    [[266, 295], 'url'],    // LIBRA
+                    [[296, 325], 'url'],    // SCORPIO
+                    [[326, 355], 'url'],    // SAGITTARIUS
+
+                    [[356, 365], 'url'],    // CAPRICORN
+                    [[0, 19], 'url'],       // CAPRICORN
+
+                    [[20, 49], 'url'],      // AQUARIUS
+                    [[50, 79], 'url'],      // PISCES
+                ];
+
+                $('#horoscope-date-selector').on('submit', function(e){
+                    e.preventDefault();
+
+                    var month = parseInt($('#horoscope-month').val()),
+                        day = parseInt($('#horoscope-day').val()),
+                        date = new Date(1985, month - 1, day),
+                        doy = date.getDOY(),
+                        selected;
+
+                    $.each(horoscopes, function(index, val) {
+                        if ((val[0][0] <= doy) && (val[0][1] >= doy)) {
+                            selected = val;
+                        };
+                    });
+
+                    console.log(selected);
+
+                })
+            });
+        </script>
     </body>
 </html>
