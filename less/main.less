@@ -1,0 +1,223 @@
+@import "../bower_components/normalize-css/normalize.css";
+@import url(http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600);
+
+@bg-color: #fff;
+@fg-color: #000;
+@spot-color: #E91D0E;
+
+html, body, .container {
+	width: 100%;
+	height: 100%;
+}
+
+body {
+	font-family: 'Source Sans Pro',sans-serif;
+	box-sizing: border-box;
+}
+
+.container {
+	display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    -webkit-flex-wrap: nowrap;
+    -ms-flex-wrap: nowrap;
+    flex-wrap: nowrap;
+    -webkit-justify-content: flex-start;
+    -ms-flex-pack: start;
+    justify-content: flex-start;
+    -webkit-align-content: stretch;
+    -ms-flex-line-pack: stretch;
+    align-content: stretch;
+    -webkit-align-items: flex-start;
+    -ms-flex-align: start;
+    align-items: flex-start;
+
+    > div {
+    	// -webkit-order: 0;
+	    // -ms-flex-order: 0;
+	    // order: 0;
+	    -webkit-flex: 0 1 auto;
+	    -ms-flex: 0 1 auto;
+	    flex: 0 1 auto;
+	    -webkit-align-self: auto;
+	    -ms-flex-item-align: auto;
+	    align-self: auto;
+	    width: 100%;
+    }
+
+	.title h1 {
+		font-size: 1.6em;
+		line-height: 1.1em;
+		text-align: center;
+		margin: .2em 0;
+	}
+	.navigation {
+		overflow: auto;
+
+		ul {
+			margin: 0;
+			padding: 0;
+			overflow: auto;
+
+			li {
+				display: block;
+				box-sizing: border-box;
+				float: left;
+				height: 65px;
+				margin: 0;
+				width: 50%;
+				border-bottom: 1px solid white;
+				background: #e91d0e; /* Old browsers */
+				background: -moz-linear-gradient(top,  #e91d0e 0%, #d91b0d 100%); /* FF3.6+ */
+				background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#e91d0e), color-stop(100%,#d91b0d)); /* Chrome,Safari4+ */
+				background: -webkit-linear-gradient(top,  #e91d0e 0%,#d91b0d 100%); /* Chrome10+,Safari5.1+ */
+				background: -o-linear-gradient(top,  #e91d0e 0%,#d91b0d 100%); /* Opera 11.10+ */
+				background: -ms-linear-gradient(top,  #e91d0e 0%,#d91b0d 100%); /* IE10+ */
+				background: linear-gradient(to bottom,  #e91d0e 0%,#d91b0d 100%); /* W3C */
+				filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e91d0e', endColorstr='#d91b0d',GradientType=0 ); /* IE6-9 */
+
+
+				&:nth-child(odd) {
+					border-right: 1px solid white;
+				}
+
+				a {
+					display: block;
+					width: 100%;
+					height: 100%;
+					text-align: center;
+					font-size: .9em;
+					line-height: 1em;
+					box-sizing: border-box;
+					padding: 10px;
+
+					&.active {
+						background-color: lighten(@spot-color, 15%);
+					}
+
+					&:link, &:visited {
+						text-decoration: none;
+						color: white;
+					}
+				}
+
+			}
+		}
+	}
+	.body {
+		-webkit-flex: 1 1 auto;
+	    -ms-flex: 1 1 auto;
+	    flex: 1 1 auto;
+	    position: relative;
+
+		> div {
+			display: none;
+			position: absolute;
+			width: 100%;
+			height: 100%;
+			overflow: hidden;
+
+			&:target {
+				display: block;
+			}
+		}
+
+		.slideshow {
+			.slide {
+				display: block;
+				height: 100%;
+				width: 100%;
+				// background-color: green;
+
+				& > img {
+					max-height: 100%;
+					max-width: 95%;
+					margin: 10px;
+				}
+
+				&:focus {
+					outline: 0;
+				}
+
+				.blurb {
+					font-size: .85em;
+					font-weight: 300;
+					margin: 6px 0;
+					padding: 0 20px;
+				}
+				.mugs {
+					// margin: 10px;
+					overflow: auto;
+
+					& > div {
+						float: left;
+						width: 50%;
+					}
+					h2 {
+						font-size: 1.1em;
+						text-align: center;
+						margin: 0 7px 0 0;
+					}
+					img {
+						max-width: 75%;
+						margin: 0 auto;
+					}
+					.vote {
+						display: block;
+						font-size: 1.5em;
+						font-weight: 700;
+						text-align: center;
+					}
+				}
+
+			}
+		}
+
+		.slick-list, .slick-track {
+			height: 100%;
+		}
+		.slick-arrow {
+		    position: absolute;
+		    top: 45%;
+		    z-index: 1000;
+		    height: 0;
+		    width: 0;
+		    border: none;
+		    padding: 0;
+		    color: rgba(0,0,0,0);
+
+			&:after {
+				display: block;
+				width: 50px;
+				height: 50px;
+				font-size: 30px;
+				line-height: 50px;
+				background-color: white;
+				border-radius: 100%;
+				border: 1px solid #EEE;
+				box-shadow: 1px 1px 5px #333;
+				color: #aaa;
+				font-weight: 200;
+			}
+			&:focus {
+				outline: 0;
+			}
+
+			&.slick-prev {
+				left: 5px;
+				&:after {
+					content: "<";
+				}
+			}
+			&.slick-next {
+				right: 55px;
+				&:after {
+					content: ">";
+				}
+			}
+		}
+	}
+}
