@@ -148,54 +148,67 @@
                     [
                         [80, 109],
                         'http://cdn.seanstoops.com/bttf_horoscope/aries.jpg',
+                        'http://cdn.seanstoops.com/bttf_horoscope/share/aries.jpg',
                         'My 1985 "Back to the Future" horoscope told me to call old friends. Get your #BackToTheFuture horoscope.'],     // ARIES
                     [
                         [110, 140],
                         'http://cdn.seanstoops.com/bttf_horoscope/taurus.jpg',
+                        'http://cdn.seanstoops.com/bttf_horoscope/share/taurus.jpg',
                         'My 1985 "Back to the Future" horoscope told me to change scenery. Get your #BackToTheFuture horoscope.'],    // TAURUS
                     [
                         [141, 171],
                         'http://cdn.seanstoops.com/bttf_horoscope/gemini.jpg',
+                        'http://cdn.seanstoops.com/bttf_horoscope/share/gemini.jpg',
                         'My 1985 "Back to the Future" horoscope told me to talk with a teenager. Get your #BackToTheFuture horoscope.'],    // GEMINI
                     [
                         [172, 203],
                         'http://cdn.seanstoops.com/bttf_horoscope/cancer.jpg',
+                        'http://cdn.seanstoops.com/bttf_horoscope/share/cancer.jpg',
                         'My 1985 "Back to the Future" horoscope said family should help with chores. Get your #BackToTheFuture horoscope.'],    // CANCER
                     [
                         [204, 234],
                         'http://cdn.seanstoops.com/bttf_horoscope/leo.jpg',
+                        'http://cdn.seanstoops.com/bttf_horoscope/share/leo.jpg',
                         'My 1985 "Back to the Future" horoscope told me to entertain. Get your #BackToTheFuture horoscope.'],    // LEO
                     [
                         [234, 265],
                         'http://cdn.seanstoops.com/bttf_horoscope/virgo.jpg',
+                        'http://cdn.seanstoops.com/bttf_horoscope/share/virgo.jpg',
                         'My 1985 "Back to the Future" horoscope wanted me to slow down. Get your #BackToTheFuture horoscope.'],    // VIRGO
                     [
                         [266, 295],
                         'http://cdn.seanstoops.com/bttf_horoscope/libra.jpg',
+                        'http://cdn.seanstoops.com/bttf_horoscope/share/libra.jpg',
                         'My 1985 "Back to the Future" horoscope warned me of get-rich-quick schemes. Get your #BackToTheFuture horoscope.'],    // LIBRA
                     [
                         [296, 325],
                         'http://cdn.seanstoops.com/bttf_horoscope/scorpio.jpg',
+                        'http://cdn.seanstoops.com/bttf_horoscope/share/scorpio.jpg',
                         'My 1985 "Back to the Future" horoscope gave me advice on domestic tensions. Get your #BackToTheFuture horoscope.'],    // SCORPIO
                     [
                         [326, 355],
                         'http://cdn.seanstoops.com/bttf_horoscope/sagittarius.jpg',
+                        'http://cdn.seanstoops.com/bttf_horoscope/share/sagittarius.jpg',
                         'My 1985 "Back to the Future" horoscope said a stranger could help me. Get your #BackToTheFuture horoscope.'],    // SAGITTARIUS
                     [
                         [356, 365],
                         'http://cdn.seanstoops.com/bttf_horoscope/capricorn.jpg',
+                        'http://cdn.seanstoops.com/bttf_horoscope/share/capricorn.jpg',
                         'My 1985 "Back to the Future" horoscope told me to accept help. Get your #BackToTheFuture horoscope.'],    // CAPRICORN
                     [
                         [0, 19],
                         'http://cdn.seanstoops.com/bttf_horoscope/capricorn.jpg',
+                        'http://cdn.seanstoops.com/bttf_horoscope/share/capricorn.jpg',
                         'My 1985 "Back to the Future" horoscope told me to accept help. Get your #BackToTheFuture horoscope.'],       // CAPRICORN
                     [
                         [20, 49],
                         'http://cdn.seanstoops.com/bttf_horoscope/aquarius.jpg',
+                        'http://cdn.seanstoops.com/bttf_horoscope/share/aquarius.jpg',
                         'My 1985 "Back to the Future" horoscope told me to do errands. Get your #BackToTheFuture horoscope.'],      // AQUARIUS
                     [
                         [50, 79],
                         'http://cdn.seanstoops.com/bttf_horoscope/pisces.jpg',
+                        'http://cdn.seanstoops.com/bttf_horoscope/share/pisces.jpg',
                         'My 1985 "Back to the Future" horoscope said to write down my ideas. Get your #BackToTheFuture horoscope.'],      // PISCES
                 ],
                 shareTitle = null,
@@ -219,8 +232,8 @@
                     });
 
                     $('#horoscope-image').attr('src', selected[1]);
-                    sharePhoto = selected[1];
-                    shareTitle = selected[2];
+                    sharePhoto = selected[2];
+                    shareTitle = selected[3];
                     $('#horoscope-sharing .fb').click(function(event) {
                         event.preventDefault();
                         FB.ui({
