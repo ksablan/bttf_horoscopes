@@ -7,13 +7,50 @@
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="apple-touch-icon" href="apple-touch-icon.png">
-        <link rel="stylesheet" href="css/main.css">
         <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600,700,800' rel='stylesheet' type='text/css'>
-
+        <style>
+            #horoscope-container {
+                position: relative;
+                max-width: 400px;
+            }
+            #horoscope-bg-image {
+                max-width: 100%;
+            }
+            #horoscope-image-container {
+                display: none;
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background-color: white;
+            }
+            #horoscope-image {
+                max-width: 100%;
+            }
+            #horoscope-date-selector #horoscope-month {
+                position: absolute;
+                bottom: 11%;
+                left: 10%;
+                width: 20%;
+            }
+            #horoscope-date-selector #horoscope-day {
+                position: absolute;
+                bottom: 11%;
+                left: 45%;
+                width: 10%;
+            }
+            #horoscope-date-selector #horoscope-submit {
+                position: absolute;
+                bottom: 11%;
+                left: 70%;
+                width: 15%;
+            }
+        </style>
     </head>
     <body>
-        <div class="container">
-            <img src="https://placeholdit.imgix.net/~text?w=400&h=300" alt="">
+        <div id="horoscope-container">
+            <img src="http://cdn.seanstoops.com/bttf_horoscope/horoscope_background.png" alt="" id="horoscope-bg-image">
             <form action="" id="horoscope-date-selector">
                 <select name="month" id="horoscope-month">
                     <option value="1">January</option>
@@ -62,8 +99,19 @@
                     <option value="30">30</option>
                     <option value="31">31</option>
                 </select>
-                <input type="submit" value="Go">
+                <input type="submit" value="Go" id="horoscope-submit">
             </form>
+            <div id="horoscope-image-container">
+                <img src="" alt="" id="horoscope-image">
+                <div id="horoscope-sharing">
+                    <a class="fb" href="">
+                        <i class="icon-facebook"></i>
+                    </a>
+                    <a class="twitter" href="" onclick="window.open(this.href, 'twitter_share', 'height=320, width=640, toolbar=no, menubar=no, scrollbars=no, resizable=no, location=no, directories=no, status=no');return false;">
+                        <i class="icon-twitter"></i>
+                    </a>
+                </div>
+            </div>
         </div>
 
         <!-- <script src="js/min/main-min.js"></script> -->
@@ -86,23 +134,74 @@
                     return dayOfYear;
                 };
 
+                String.prototype.format = function() {
+                    var args = arguments;
+                    return this.replace(/{(\d+)}/g, function(match, number) { 
+                      return typeof args[number] != 'undefined'
+                        ? args[number]
+                        : match
+                      ;
+                    });
+                  };
+
                 var horoscopes = [
-                    [[80, 109], 'url'],     // ARIES
-                    [[110, 140], 'url'],    // TAURUS
-                    [[141, 171], 'url'],    // GEMINI
-                    [[172, 203], 'url'],    // CANCER
-                    [[204, 234], 'url'],    // LEO
-                    [[234, 265], 'url'],    // VIRGO
-                    [[266, 295], 'url'],    // LIBRA
-                    [[296, 325], 'url'],    // SCORPIO
-                    [[326, 355], 'url'],    // SAGITTARIUS
-
-                    [[356, 365], 'url'],    // CAPRICORN
-                    [[0, 19], 'url'],       // CAPRICORN
-
-                    [[20, 49], 'url'],      // AQUARIUS
-                    [[50, 79], 'url'],      // PISCES
-                ];
+                    [
+                        [80, 109],
+                        'http://cdn.seanstoops.com/bttf_horoscope/aries.jpg',
+                        'My 1985 "Back to the Future" horoscope told me to call old friends. Get your #BackToTheFuture horoscope.'],     // ARIES
+                    [
+                        [110, 140],
+                        'http://cdn.seanstoops.com/bttf_horoscope/taurus.jpg',
+                        'My 1985 "Back to the Future" horoscope told me to change scenery. Get your #BackToTheFuture horoscope.'],    // TAURUS
+                    [
+                        [141, 171],
+                        'http://cdn.seanstoops.com/bttf_horoscope/gemini.jpg',
+                        'My 1985 "Back to the Future" horoscope told me to talk with a teenager. Get your #BackToTheFuture horoscope.'],    // GEMINI
+                    [
+                        [172, 203],
+                        'http://cdn.seanstoops.com/bttf_horoscope/cancer.jpg',
+                        'My 1985 "Back to the Future" horoscope said family should help with chores. Get your #BackToTheFuture horoscope.'],    // CANCER
+                    [
+                        [204, 234],
+                        'http://cdn.seanstoops.com/bttf_horoscope/leo.jpg',
+                        'My 1985 "Back to the Future" horoscope told me to entertain. Get your #BackToTheFuture horoscope.'],    // LEO
+                    [
+                        [234, 265],
+                        'http://cdn.seanstoops.com/bttf_horoscope/virgo.jpg',
+                        'My 1985 "Back to the Future" horoscope wanted me to slow down. Get your #BackToTheFuture horoscope.'],    // VIRGO
+                    [
+                        [266, 295],
+                        'http://cdn.seanstoops.com/bttf_horoscope/libra.jpg',
+                        'My 1985 "Back to the Future" horoscope warned me of get-rich-quick schemes. Get your #BackToTheFuture horoscope.'],    // LIBRA
+                    [
+                        [296, 325],
+                        'http://cdn.seanstoops.com/bttf_horoscope/scorpio.jpg',
+                        'My 1985 "Back to the Future" horoscope gave me advice on domestic tensions. Get your #BackToTheFuture horoscope.'],    // SCORPIO
+                    [
+                        [326, 355],
+                        'http://cdn.seanstoops.com/bttf_horoscope/sagittarius.jpg',
+                        'My 1985 "Back to the Future" horoscope said a stranger could help me. Get your #BackToTheFuture horoscope.'],    // SAGITTARIUS
+                    [
+                        [356, 365],
+                        'http://cdn.seanstoops.com/bttf_horoscope/capricorn.jpg',
+                        'My 1985 "Back to the Future" horoscope told me to accept help. Get your #BackToTheFuture horoscope.'],    // CAPRICORN
+                    [
+                        [0, 19],
+                        'http://cdn.seanstoops.com/bttf_horoscope/capricorn.jpg',
+                        'My 1985 "Back to the Future" horoscope told me to accept help. Get your #BackToTheFuture horoscope.'],       // CAPRICORN
+                    [
+                        [20, 49],
+                        'http://cdn.seanstoops.com/bttf_horoscope/aquarius.jpg',
+                        'My 1985 "Back to the Future" horoscope told me to do errands. Get your #BackToTheFuture horoscope.'],      // AQUARIUS
+                    [
+                        [50, 79],
+                        'http://cdn.seanstoops.com/bttf_horoscope/pisces.jpg',
+                        'My 1985 "Back to the Future" horoscope said to write down my ideas. Get your #BackToTheFuture horoscope.'],      // PISCES
+                ],
+                shareTitle = null,
+                shareUrl = "",
+                sharePhoto = null,
+                twitterUrlTemplate = "https://twitter.com/intent/tweet?text={0}";
 
                 $('#horoscope-date-selector').on('submit', function(e){
                     e.preventDefault();
@@ -119,9 +218,23 @@
                         };
                     });
 
-                    console.log(selected);
+                    $('#horoscope-image').attr('src', selected[1]);
+                    sharePhoto = selected[1];
+                    shareTitle = selected[2];
+                    $('#horoscope-sharing .fb').click(function(event) {
+                        event.preventDefault();
+                        FB.ui({
+                            method: 'feed',
+                            caption: shareTitle,
+                            picture: sharePhoto
+                        }, function(response){});
+                    });
+                    $('#horoscope-sharing .twitter').attr(
+                        'href',
+                        twitterUrlTemplate.format(encodeURIComponent(shareTitle)));
+                    $('#horoscope-image-container').css('display', 'block');
 
-                })
+                });
             });
         </script>
     </body>
