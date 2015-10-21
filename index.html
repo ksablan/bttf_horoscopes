@@ -1,54 +1,3 @@
-<!doctype html>
-<html class="no-js" lang="">
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title></title>
-        <meta name="description" content="">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="apple-touch-icon" href="apple-touch-icon.png">
-        <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600,700,800' rel='stylesheet' type='text/css'>
-        <style>
-            #horoscope-container {
-                position: relative;
-                max-width: 400px;
-            }
-            #horoscope-bg-image {
-                max-width: 100%;
-            }
-            #horoscope-image-container {
-                display: none;
-                position: absolute;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100%;
-                background-color: white;
-            }
-            #horoscope-image {
-                max-width: 100%;
-            }
-            #horoscope-date-selector #horoscope-month {
-                position: absolute;
-                bottom: 11%;
-                left: 10%;
-                width: 20%;
-            }
-            #horoscope-date-selector #horoscope-day {
-                position: absolute;
-                bottom: 11%;
-                left: 45%;
-                width: 10%;
-            }
-            #horoscope-date-selector #horoscope-submit {
-                position: absolute;
-                bottom: 11%;
-                left: 70%;
-                width: 15%;
-            }
-        </style>
-    </head>
-    <body>
         <div id="horoscope-container">
             <img src="http://cdn.seanstoops.com/bttf_horoscope/horoscope_background.png" alt="" id="horoscope-bg-image">
             <form action="" id="horoscope-date-selector">
@@ -105,19 +54,32 @@
                 <img src="" alt="" id="horoscope-image">
                 <div id="horoscope-sharing">
                     <a class="fb" href="">
-                        <i class="icon-facebook"></i>
+                        Share on Facebook
                     </a>
                     <a class="twitter" href="" onclick="window.open(this.href, 'twitter_share', 'height=320, width=640, toolbar=no, menubar=no, scrollbars=no, resizable=no, location=no, directories=no, status=no');return false;">
-                        <i class="icon-twitter"></i>
+                        Post on Twitter
                     </a>
                 </div>
             </div>
         </div>
 
-        <!-- <script src="js/min/main-min.js"></script> -->
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+        <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script> -->
         <script>
-            $(document).ready(function() {
+            jQuery(document).ready(function() {
+                var horoscopecss = '#horoscope-container { position: relative; max-width: 400px; }';
+                horoscopecss += '#horoscope-bg-image { max-width: 100%; }';
+                horoscopecss += '#horoscope-image-container { display: none; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-color: white; }';
+                horoscopecss += '#horoscope-image { max-width: 100%; }';
+                horoscopecss += '#horoscope-date-selector #horoscope-month { position: absolute; bottom: 11%; left: 10%; width: 20%; }';
+                horoscopecss += '#horoscope-date-selector #horoscope-day { position: absolute; bottom: 11%; left: 45%; width: 10%; }';
+                horoscopecss += '#horoscope-date-selector #horoscope-submit { position: absolute; bottom: 11%; left: 70%; width: 15%; }';
+                horoscopecss += '#horoscope-sharing a { color: white; text-decoration: none; padding: 1em; margin: .5em; border-radius: 3px; }';
+                horoscopecss += '#horoscope-sharing a.twitter { background-color: #55acee; }';
+                horoscopecss += '#horoscope-sharing a.fb { background-color: #0e1f5b; }';
+                horoscopecss += 'horoscope-sharing { width: 100%; text-align: center; padding-top: 1em; margin-bottom: 1em; }';
+
+                jQuery('<style type="text/css">' + horoscopecss + '</style>').appendTo(jQuery('head'));
+
                 Date.prototype.isLeapYear = function() {
                     var year = this.getFullYear();
                     if((year & 3) != 0) return false;
@@ -212,43 +174,42 @@
                         'My 1985 "Back to the Future" horoscope said to write down my ideas. Get your #BackToTheFuture horoscope.'],      // PISCES
                 ],
                 shareTitle = null,
-                shareUrl = "",
+                shareUrl = window.location.href,
                 sharePhoto = null,
                 twitterUrlTemplate = "https://twitter.com/intent/tweet?text={0}";
 
-                $('#horoscope-date-selector').on('submit', function(e){
+                jQuery('#horoscope-date-selector').submit(function(e){
                     e.preventDefault();
 
-                    var month = parseInt($('#horoscope-month').val()),
-                        day = parseInt($('#horoscope-day').val()),
+                    var month = parseInt(jQuery('#horoscope-month').val()),
+                        day = parseInt(jQuery('#horoscope-day').val()),
                         date = new Date(1985, month - 1, day),
                         doy = date.getDOY(),
                         selected;
 
-                    $.each(horoscopes, function(index, val) {
+                    jQuery.each(horoscopes, function(index, val) {
                         if ((val[0][0] <= doy) && (val[0][1] >= doy)) {
                             selected = val;
                         };
                     });
 
-                    $('#horoscope-image').attr('src', selected[1]);
+                    jQuery('#horoscope-image').attr('src', selected[1]);
                     sharePhoto = selected[2];
                     shareTitle = selected[3];
-                    $('#horoscope-sharing .fb').click(function(event) {
+                    jQuery('#horoscope-sharing .fb').click(function(event) {
                         event.preventDefault();
                         FB.ui({
                             method: 'feed',
-                            caption: shareTitle,
-                            picture: sharePhoto
+                            name: shareTitle,
+                            picture: sharePhoto,
+                            link: shareUrl
                         }, function(response){});
                     });
-                    $('#horoscope-sharing .twitter').attr(
+                    jQuery('#horoscope-sharing .twitter').attr(
                         'href',
-                        twitterUrlTemplate.format(encodeURIComponent(shareTitle)));
-                    $('#horoscope-image-container').css('display', 'block');
+                        twitterUrlTemplate.format(encodeURIComponent(shareTitle) + ' ' + encodeURIComponent(window.location.href.split('?')[0])));
+                    jQuery('#horoscope-image-container').css('display', 'block');
 
                 });
             });
         </script>
-    </body>
-</html>
